@@ -1,12 +1,10 @@
 #!/usr/bin/python3
 
 '''
-Python script that outputs distance + driving time from a given origin location.
+Python script that outputs distance + driving time to a currently availible
+hackathon from a given origin location.
 
-Supports (current month) to December (current year) hackathons.
 Uses Google Maps API 3.x, Hackalist API 1.0 and the requests library.
-
-this is for you peter <3
 '''
 
 import sys
@@ -51,7 +49,7 @@ def verify_correct(loc_str):
 def main():
     origin, do_origin_query = None, True
     try:
-        with open('howfar_origin.txt', 'r') as f:
+        with open('hhf_origin.txt', 'r') as f:
             print("Detected saved origin location information.")
             origin = f.read().strip()
             do_origin_query = not verify_correct(origin)
@@ -64,7 +62,7 @@ def main():
             input_origin = input('> ')
             origin = get_travel_info(input_origin, 'usa')["origin_addresses"][0]
             if verify_correct(origin):
-                with open('howfar_origin.txt', 'w') as f:
+                with open('hhf_origin.txt', 'w') as f:
                     f.write(origin)
                 break
 
