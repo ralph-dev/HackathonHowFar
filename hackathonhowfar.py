@@ -17,19 +17,23 @@ HACKALIST_API_CALL_URL = "http://www.hackalist.org/api/1.0/{}/{}.json"
 
 
 def get_travel_info(orig, dest):
+    '''(str, str) -> json'''
     return requests.get(GMAPS_API_CALL_URL.format(orig, dest)).json()
 
 
 def get_hackathon_info(year, month):
+    '''(str, str) -> json'''
     return requests.get(HACKALIST_API_CALL_URL.format(year, month)).json()
 
 
 def simplify_hackathon_name(h):
-    '''desensitize hackathon name keys for easier end-user lookup'''
+    '''(list of str) -> list of str
+    desensitize hackathon name keys for easier end-user lookup'''
     return ''.join([c for c in h.lower() if c in ascii_lowercase])
 
 
 def retrieve_hackathon_info():
+    '''(none) -> dict of str'''
     hackathons, now = dict(), datetime.now()
     print("Downloading hackathon info from this month ({}) to the end of year {}..."
           .format(now.month, now.year))
@@ -40,6 +44,7 @@ def retrieve_hackathon_info():
 
 
 def verify_correct(loc_str):
+    '''(str) -> bool'''
     '''prompt user to verify whether input addresses were mapped correctly'''
     if not loc_str:
         return False
@@ -47,6 +52,7 @@ def verify_correct(loc_str):
 
 
 def main():
+    '''(none) -> int'''
     origin, do_origin_query = None, True
     try:
         with open('hhf_origin.txt', 'r') as f:
